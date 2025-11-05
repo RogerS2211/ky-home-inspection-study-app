@@ -85,13 +85,16 @@ export const StudyProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     // Calculate spaced repetition values
     const srData = calculateNextReview(confidence, existing);
 
+    // Determine if card is mastered based on spaced repetition performance
+    const isMastered = srData.repetitions >= 3 && srData.easinessFactor >= 2.3;
+
     const newProgress: StudyProgress = {
       deckId,
       cardId,
       lastStudied: now,
       confidence,
       reviewCount: (existing?.reviewCount || 0) + 1,
-      mastered: confidence === 'easy' && (existing?.reviewCount || 0) >= 1,
+      mastered: isMastered,
       // Spaced repetition fields
       easinessFactor: srData.easinessFactor,
       interval: srData.interval,
