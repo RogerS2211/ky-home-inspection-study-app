@@ -171,6 +171,85 @@ export const decks: Deck[] = [
         category: 'Plumbing'
       }
     ]
+  },
+  {
+    id: 'structure-types',
+    title: 'Structure Types',
+    description: 'Identify common residential structure types and construction methods',
+    category: 'Structural',
+    icon: '🏘️',
+    cards: [
+      {
+        id: 'st-1',
+        question: 'What type of foundation structure is shown?',
+        answer: 'Slab-on-Grade Foundation: A concrete slab poured directly on the ground, common in warmer climates. No crawl space or basement. Cost-effective but difficult to access plumbing.',
+        category: 'Structure',
+        imageUrl: '/images/structures/slab-foundation.jpg'
+      },
+      {
+        id: 'st-2',
+        question: 'What type of roof structure is shown?',
+        answer: 'Gable Roof: The most common roof type featuring two sloping sides that meet at a ridge. Provides excellent water drainage and attic ventilation. Simple, cost-effective design.',
+        category: 'Structure',
+        imageUrl: '/images/structures/gable-roof.jpg'
+      },
+      {
+        id: 'st-3',
+        question: 'What type of roof structure is shown?',
+        answer: 'Hip Roof: All sides slope downward to the walls, with no vertical ends. More stable in high winds than gable roofs. More complex and expensive to build.',
+        category: 'Structure',
+        imageUrl: '/images/structures/hip-roof.jpg'
+      },
+      {
+        id: 'st-4',
+        question: 'What type of foundation structure is shown?',
+        answer: 'Crawl Space Foundation: Elevated foundation creating a shallow space (18-48 inches) beneath the home. Allows access to plumbing and wiring. Requires proper ventilation and moisture control.',
+        category: 'Structure',
+        imageUrl: '/images/structures/crawl-space.jpg'
+      },
+      {
+        id: 'st-5',
+        question: 'What type of wall framing is shown?',
+        answer: 'Platform Framing (Stick-Built): Most common modern construction method. Each floor is framed as a separate platform. Walls are built on-site using 2x4 or 2x6 lumber.',
+        category: 'Structure',
+        imageUrl: '/images/structures/platform-framing.jpg'
+      },
+      {
+        id: 'st-6',
+        question: 'What type of roof structure is shown?',
+        answer: 'Mansard Roof: Four-sided roof with a steep lower slope and shallow upper slope. Provides additional living space (like an attic). Common in French architecture and older homes.',
+        category: 'Structure',
+        imageUrl: '/images/structures/mansard-roof.jpg'
+      },
+      {
+        id: 'st-7',
+        question: 'What type of foundation structure is shown?',
+        answer: 'Full Basement Foundation: Complete story below ground level with 8+ foot ceilings. Provides living/storage space and utility access. Requires proper waterproofing and drainage.',
+        category: 'Structure',
+        imageUrl: '/images/structures/basement-foundation.jpg'
+      },
+      {
+        id: 'st-8',
+        question: 'What type of roof structure is shown?',
+        answer: 'Flat Roof (Low-Slope): Nearly horizontal roof with minimal pitch (usually 1/4 inch per foot). Common in commercial buildings and modern residential. Requires careful drainage and waterproofing.',
+        category: 'Structure',
+        imageUrl: '/images/structures/flat-roof.jpg'
+      },
+      {
+        id: 'st-9',
+        question: 'What type of support structure is shown?',
+        answer: 'Floor Joist System: Horizontal structural members that support floors and ceilings. Typically 2x8, 2x10, or 2x12 lumber spaced 16 or 24 inches on center. Transfers loads to beams and foundation.',
+        category: 'Structure',
+        imageUrl: '/images/structures/floor-joists.jpg'
+      },
+      {
+        id: 'st-10',
+        question: 'What type of exterior wall system is shown?',
+        answer: 'Brick Veneer: Non-structural decorative brick layer over wood frame construction. 1-inch air gap between brick and sheathing. Requires weep holes for drainage and metal ties for support.',
+        category: 'Structure',
+        imageUrl: '/images/structures/brick-veneer.jpg'
+      }
+    ]
   }
 ];
 

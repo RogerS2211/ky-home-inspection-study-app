@@ -17,9 +17,25 @@ export const Card: React.FC<CardProps> = ({ card, isFlipped, onFlip }) => {
             <div className="text-sm font-semibold text-primary mb-4 uppercase tracking-wide">
               Question
             </div>
-            <div className="text-2xl md:text-3xl font-medium text-gray-800 leading-relaxed">
-              {card.question}
-            </div>
+
+            {/* Show image if available, otherwise show text */}
+            {card.imageUrl ? (
+              <div className="flex-1 flex flex-col justify-center items-center w-full">
+                <img
+                  src={card.imageUrl}
+                  alt={card.question}
+                  className="max-w-full max-h-[300px] object-contain rounded-lg mb-4"
+                />
+                <div className="text-xl md:text-2xl font-medium text-gray-800">
+                  {card.question}
+                </div>
+              </div>
+            ) : (
+              <div className="text-2xl md:text-3xl font-medium text-gray-800 leading-relaxed">
+                {card.question}
+              </div>
+            )}
+
             <div className="mt-8 text-gray-400 text-sm">
               Tap to reveal answer
             </div>
