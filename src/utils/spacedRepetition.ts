@@ -91,11 +91,11 @@ export function getDaysUntilReview(progress: StudyProgress): number {
 
 /**
  * Check if a card is considered "hard" (needs review)
+ * Only shows cards you've explicitly rated as "hard" or are genuinely struggling with
  */
 export function isCardHard(progress: StudyProgress): boolean {
   return (
     progress.confidence === 'hard' ||
-    progress.repetitions < 2 ||
-    progress.easinessFactor < 2.0
+    progress.easinessFactor < 1.8
   );
 }
