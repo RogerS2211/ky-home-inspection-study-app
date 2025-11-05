@@ -6,7 +6,7 @@ import { decks } from '../data/decks';
 
 export const DeckSelection: React.FC = () => {
   const navigate = useNavigate();
-  const { setCurrentDeck, getTotalProgress, getMasteredCount } = useStudy();
+  const { setCurrentDeck, getTotalProgress, getMasteredCount, getDueCount, getHardCount } = useStudy();
 
   const handleDeckSelect = (deckId: string) => {
     setCurrentDeck(deckId);
@@ -27,6 +27,8 @@ export const DeckSelection: React.FC = () => {
               const totalCards = deck.cards.length;
               const studiedCards = getTotalProgress(deck.id);
               const masteredCards = getMasteredCount(deck.id);
+              const dueCards = getDueCount(deck.id);
+              const hardCards = getHardCount(deck.id);
               const progressPercent = totalCards > 0 ? (studiedCards / totalCards) * 100 : 0;
               const masteredPercent = totalCards > 0 ? (masteredCards / totalCards) * 100 : 0;
 
@@ -38,7 +40,21 @@ export const DeckSelection: React.FC = () => {
                 >
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
-                      <div className="text-5xl">{deck.icon}</div>
+                      <div className="flex items-center gap-2">
+                        <div className="text-5xl">{deck.icon}</div>
+                        <div className="flex flex-col gap-1">
+                          {dueCards > 0 && (
+                            <div className="bg-warning text-white text-xs font-bold px-2 py-1 rounded">
+                              {dueCards} Due
+                            </div>
+                          )}
+                          {hardCards > 0 && (
+                            <div className="bg-danger text-white text-xs font-bold px-2 py-1 rounded">
+                              {hardCards} Hard
+                            </div>
+                          )}
+                        </div>
+                      </div>
                       <div className="bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full">
                         {deck.category}
                       </div>

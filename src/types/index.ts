@@ -17,6 +17,8 @@ export interface Deck {
 
 export type ConfidenceLevel = 'hard' | 'good' | 'easy';
 
+export type StudyMode = 'all' | 'due' | 'hard';
+
 export interface StudyProgress {
   deckId: string;
   cardId: string;
@@ -24,6 +26,11 @@ export interface StudyProgress {
   confidence: ConfidenceLevel;
   reviewCount: number;
   mastered: boolean;
+  // Spaced repetition (SM-2 algorithm)
+  easinessFactor: number; // 1.3 to 2.5, default 2.5
+  interval: number; // Days until next review
+  nextReviewDate: string; // ISO date string
+  repetitions: number; // Consecutive correct reviews
 }
 
 export interface StudySession {

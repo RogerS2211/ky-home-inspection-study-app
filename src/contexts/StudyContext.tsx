@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import type { StudyProgress, StudyState, ConfidenceLevel } from '../types';
+import { calculateNextReview, isCardDue, isCardHard } from '../utils/spacedRepetition';
 
 interface StudyContextType {
   state: StudyState;
@@ -9,12 +10,14 @@ interface StudyContextType {
   setCurrentCardIndex: (index: number) => void;
   getMasteredCount: (deckId: string) => number;
   getTotalProgress: (deckId: string) => number;
+  getDueCount: (deckId: string) => number;
+  getHardCount: (deckId: string) => number;
   resetProgress: (deckId: string) => void;
 }
 
 const StudyContext = createContext<StudyContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'study-progress-v1';
+const STORAGE_KEY = 'study-progress-v2';
 
 const getInitialState = (): StudyState => {
   try {
@@ -79,13 +82,21 @@ export const StudyProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const today = now.split('T')[0];
     const lastStudyDay = state.session.lastStudyDate.split('T')[0];
 
+    // Calculate spaced repetition values
+    const srData = calculateNextReview(confidence, existing);
+
     const newProgress: StudyProgress = {
       deckId,
       cardId,
       lastStudied: now,
       confidence,
       reviewCount: (existing?.reviewCount || 0) + 1,
-      mastered: confidence === 'easy' && (existing?.reviewCount || 0) >= 1
+      mastered: confidence === 'easy' && (existing?.reviewCount || 0) >= 1,
+      // Spaced repetition fields
+      easinessFactor: srData.easinessFactor,
+      interval: srData.interval,
+      nextReviewDate: srData.nextReviewDate,
+      repetitions: srData.repetitions
     };
 
     setState(prev => ({
@@ -137,6 +148,18 @@ export const StudyProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     ).length;
   };
 
+  const getDueCount = (deckId: string): number => {
+    return Object.values(state.progress).filter(
+      p => p.deckId === deckId && isCardDue(p)
+    ).length;
+  };
+
+  const getHardCount = (deckId: string): number => {
+    return Object.values(state.progress).filter(
+      p => p.deckId === deckId && isCardHard(p)
+    ).length;
+  };
+
   const resetProgress = (deckId: string) => {
     setState(prev => ({
       ...prev,
@@ -155,6 +178,8 @@ export const StudyProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         setCurrentCardIndex,
         getMasteredCount,
         getTotalProgress,
+        getDueCount,
+        getHardCount,
         resetProgress
       }}
     >
