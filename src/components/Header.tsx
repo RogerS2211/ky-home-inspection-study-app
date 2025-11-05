@@ -32,7 +32,14 @@ export const Header: React.FC<HeaderProps> = ({ showBackButton = false, onBack }
             Kentucky Home Inspector
           </h1>
 
-          <div className="w-20"></div>
+          <Link
+            to="/stats"
+            className="flex items-center gap-2 hover:bg-blue-700 px-3 py-2 rounded-lg transition-colors"
+            title="View Statistics"
+          >
+            <span className="text-2xl">📊</span>
+            <span className="font-medium hidden sm:inline">Stats</span>
+          </Link>
         </div>
       </div>
     </header>

@@ -47,7 +47,7 @@ export const Home: React.FC = () => {
             </div>
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Buttons */}
           <div className="text-center mb-12">
             <Link
               to="/decks"
@@ -55,6 +55,16 @@ export const Home: React.FC = () => {
             >
               Start Studying
             </Link>
+            <div className="mt-4">
+              <Link
+                to="/stats"
+                className="inline-flex items-center gap-2 text-primary hover:text-blue-700 font-semibold transition-colors"
+              >
+                <span>📊</span>
+                <span>View Your Statistics</span>
+                <span>→</span>
+              </Link>
+            </div>
           </div>
 
           {/* Features */}

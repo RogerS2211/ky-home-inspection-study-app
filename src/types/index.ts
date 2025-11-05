@@ -33,12 +33,20 @@ export interface StudyProgress {
   repetitions: number; // Consecutive correct reviews
 }
 
+export interface StudyHistoryEntry {
+  date: string; // YYYY-MM-DD format
+  cardsReviewed: number;
+  timeSpent?: number; // optional, in minutes
+}
+
 export interface StudySession {
   currentDeckId: string | null;
   currentCardIndex: number;
   cardsReviewedToday: number;
   streak: number;
   lastStudyDate: string; // ISO date string
+  firstStudyDate: string | null; // ISO date string, set on first review
+  studyHistory: StudyHistoryEntry[]; // Daily study log for trends
 }
 
 export interface StudyState {

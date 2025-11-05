@@ -13,6 +13,13 @@ interface StudyContextType {
   getDueCount: (deckId: string) => number;
   getHardCount: (deckId: string) => number;
   resetProgress: (deckId: string) => void;
+  // Statistics methods
+  getAverageEasinessFactor: (deckId: string) => number;
+  getStrugglingCards: (limit?: number) => StudyProgress[];
+  getDueCardsInNextDays: (days: number) => Array<{ date: string; count: number }>;
+  getTotalMasteredCount: () => number;
+  getTotalStudiedCount: () => number;
+  getRecentStudyHistory: (days: number) => number[];
 }
 
 const StudyContext = createContext<StudyContextType | undefined>(undefined);
@@ -36,7 +43,9 @@ const getInitialState = (): StudyState => {
       currentCardIndex: 0,
       cardsReviewedToday: 0,
       streak: 0,
-      lastStudyDate: new Date().toISOString()
+      lastStudyDate: new Date().toISOString(),
+      firstStudyDate: null,
+      studyHistory: []
     }
   };
 };
@@ -102,20 +111,41 @@ export const StudyProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       repetitions: srData.repetitions
     };
 
-    setState(prev => ({
-      progress: {
-        ...prev.progress,
-        [key]: newProgress
-      },
-      session: {
-        ...prev.session,
-        cardsReviewedToday: prev.session.cardsReviewedToday + 1,
-        streak: lastStudyDay !== today && prev.session.cardsReviewedToday === 0
-          ? prev.session.streak + 1
-          : prev.session.streak,
-        lastStudyDate: now
+    setState(prev => {
+      const newCardsReviewedToday = prev.session.cardsReviewedToday + 1;
+      const isNewDay = lastStudyDay !== today;
+
+      // Update study history for the day
+      let updatedHistory = [...prev.session.studyHistory];
+      const todayEntry = updatedHistory.find(entry => entry.date === today);
+
+      if (todayEntry) {
+        todayEntry.cardsReviewed += 1;
+      } else if (isNewDay) {
+        updatedHistory.push({ date: today, cardsReviewed: 1 });
+        // Keep only last 90 days of history
+        if (updatedHistory.length > 90) {
+          updatedHistory = updatedHistory.slice(-90);
+        }
       }
-    }));
+
+      return {
+        progress: {
+          ...prev.progress,
+          [key]: newProgress
+        },
+        session: {
+          ...prev.session,
+          cardsReviewedToday: isNewDay ? 1 : newCardsReviewedToday,
+          streak: isNewDay && prev.session.cardsReviewedToday === 0
+            ? prev.session.streak + 1
+            : prev.session.streak,
+          lastStudyDate: now,
+          firstStudyDate: prev.session.firstStudyDate || now,
+          studyHistory: updatedHistory
+        }
+      };
+    });
   };
 
   const setCurrentDeck = (deckId: string) => {
@@ -172,6 +202,65 @@ export const StudyProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     }));
   };
 
+  // Statistics methods
+  const getAverageEasinessFactor = (deckId: string): number => {
+    const deckCards = Object.values(state.progress).filter(p => p.deckId === deckId);
+    if (deckCards.length === 0) return 0;
+    const sum = deckCards.reduce((acc, p) => acc + p.easinessFactor, 0);
+    return sum / deckCards.length;
+  };
+
+  const getStrugglingCards = (limit: number = 10): StudyProgress[] => {
+    return Object.values(state.progress)
+      .filter(p => isCardHard(p))
+      .sort((a, b) => a.easinessFactor - b.easinessFactor)
+      .slice(0, limit);
+  };
+
+  const getDueCardsInNextDays = (days: number): Array<{ date: string; count: number }> => {
+    const result: Array<{ date: string; count: number }> = [];
+    const now = new Date();
+
+    for (let i = 0; i < days; i++) {
+      const targetDate = new Date(now);
+      targetDate.setDate(targetDate.getDate() + i);
+      const dateStr = targetDate.toISOString().split('T')[0];
+
+      const count = Object.values(state.progress).filter(p => {
+        const reviewDate = new Date(p.nextReviewDate).toISOString().split('T')[0];
+        return reviewDate === dateStr;
+      }).length;
+
+      result.push({ date: dateStr, count });
+    }
+
+    return result;
+  };
+
+  const getTotalMasteredCount = (): number => {
+    return Object.values(state.progress).filter(p => p.mastered).length;
+  };
+
+  const getTotalStudiedCount = (): number => {
+    return Object.keys(state.progress).length;
+  };
+
+  const getRecentStudyHistory = (days: number): number[] => {
+    const result: number[] = [];
+    const now = new Date();
+
+    for (let i = days - 1; i >= 0; i--) {
+      const targetDate = new Date(now);
+      targetDate.setDate(targetDate.getDate() - i);
+      const dateStr = targetDate.toISOString().split('T')[0];
+
+      const entry = state.session.studyHistory.find(h => h.date === dateStr);
+      result.push(entry ? entry.cardsReviewed : 0);
+    }
+
+    return result;
+  };
+
   return (
     <StudyContext.Provider
       value={{
@@ -183,7 +272,13 @@ export const StudyProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         getTotalProgress,
         getDueCount,
         getHardCount,
-        resetProgress
+        resetProgress,
+        getAverageEasinessFactor,
+        getStrugglingCards,
+        getDueCardsInNextDays,
+        getTotalMasteredCount,
+        getTotalStudiedCount,
+        getRecentStudyHistory
       }}
     >
       {children}
