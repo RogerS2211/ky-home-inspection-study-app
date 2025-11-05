@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { StudyProvider } from './contexts/StudyContext';
 import { Home } from './pages/Home';
 import { DeckSelection } from './pages/DeckSelection';
@@ -14,6 +15,7 @@ function App() {
           <Route path="/study/:deckId" element={<Study />} />
         </Routes>
       </Router>
+      <SpeedInsights />
     </StudyProvider>
   );
 }
