@@ -765,6 +765,92 @@ export const decks: Deck[] = [
     ]
   },
   {
+    id: 'insulation-types',
+    title: 'Insulation Types & Fire Safety',
+    description: 'Visual identification of insulation materials, fire ratings, and safety concerns',
+    category: 'Systems',
+    icon: '🧱',
+    cards: [
+      {
+        id: 'ins-1',
+        question: 'What type of insulation is shown?',
+        answer: 'Fiberglass Batt Insulation: Pink/yellow flexible blankets. CLASS A - Non-combustible, melts at 1,500°F. Kraft paper/foil facings ARE flammable. ID: Fluffy texture, R-13 to R-38. Inspector concerns: Exposed paper facing (fire hazard), compression/gaps (reduced R-value), moisture damage.',
+        category: 'Insulation',
+        imageUrl: '/images/insulation/fiberglass-batts.jpg'
+      },
+      {
+        id: 'ins-2',
+        question: 'What type of insulation is shown?',
+        answer: 'Cellulose (Blown-in): Gray loose-fill, shredded paper appearance. CLASS 1 - Fire-retardant treated but combustible, ignites at 400°F. ID: Fluffy gray, recycled newsprint in attics. Inspector concerns: Settling (reduces R-value), moisture absorption/mold, covering recessed lights, burying junction boxes. Can smolder.',
+        category: 'Insulation',
+        imageUrl: '/images/insulation/cellulose-blown.jpg'
+      },
+      {
+        id: 'ins-3',
+        question: 'What type of insulation is shown?',
+        answer: 'Open-Cell Spray Foam: Soft, spongy (can indent). COMBUSTIBLE - Ignites at 700°F, REQUIRES thermal barrier. R-3.5/inch. ID: Light/airy, yellowish, expands significantly. Inspector concerns: Missing thermal barrier (code violation), voids/gaps, shrinkage, covering electrical, off-gassing if improperly mixed.',
+        category: 'Insulation',
+        imageUrl: '/images/insulation/open-cell-foam.jpg'
+      },
+      {
+        id: 'ins-4',
+        question: 'What type of insulation is shown?',
+        answer: 'Closed-Cell Spray Foam: Dense, rigid (cannot indent). COMBUSTIBLE - Ignites at 700°F, REQUIRES thermal barrier. R-6 to R-7/inch, vapor barrier properties. ID: Hard/smooth, tan/cream, minimal expansion. Inspector concerns: Missing thermal barrier (code violation), covering electrical, improper mixing, trapping moisture.',
+        category: 'Insulation',
+        imageUrl: '/images/insulation/closed-cell-foam.jpg'
+      },
+      {
+        id: 'ins-5',
+        question: 'What type of insulation is shown?',
+        answer: 'Mineral Wool/Rockwool: Gray-brown rigid batts. CLASS A - Non-combustible, withstands 2,150°F. BEST fire resistance. ID: Dense/heavy, scratchy texture, maintains shape. R-15 to R-30. Inspector concerns: Heavier (attic load), gaps, moisture retention if wet. Excellent for fire-rated assemblies.',
+        category: 'Insulation',
+        imageUrl: '/images/insulation/mineral-wool.jpg'
+      },
+      {
+        id: 'ins-6',
+        question: 'What type of insulation is shown?',
+        answer: 'EPS Rigid Foam (Expanded Polystyrene): White beadboard like coffee cups. COMBUSTIBLE - Melts/drips, adds fuel to fire. R-3.6 to R-4.2/inch. ID: White bead structure, lightweight, breaks easily, squeaks. Inspector concerns: REQUIRES thermal barrier (code violation if exposed), UV deterioration, pest damage, melts/drips in fire.',
+        category: 'Insulation',
+        imageUrl: '/images/insulation/eps-foam.jpg'
+      },
+      {
+        id: 'ins-7',
+        question: 'What type of insulation is shown?',
+        answer: 'XPS Rigid Foam (Extruded Polystyrene): Blue (Dow) or pink (Owens Corning) boards. COMBUSTIBLE - Melts at 165-210°F, drips molten material. R-5/inch. ID: Blue/pink/green, smooth texture, denser than EPS. Inspector concerns: REQUIRES thermal barrier (common code violation), UV deterioration, melts rapidly, off-gassing.',
+        category: 'Insulation',
+        imageUrl: '/images/insulation/xps-foam.jpg'
+      },
+      {
+        id: 'ins-8',
+        question: 'What type of insulation is shown?',
+        answer: 'Polyisocyanurate (Polyiso): Foil-faced boards, silver/reflective. COMBUSTIBLE but BEST fire performance of foam boards - Forms char layer, doesn\'t melt/drip. R-6 to R-6.5/inch (highest). ID: Foil on both sides, manufacturer text on foil. Inspector concerns: REQUIRES thermal barrier, foil conducts electricity, R-value drops in cold.',
+        category: 'Insulation',
+        imageUrl: '/images/insulation/polyiso-foam.jpg'
+      },
+      {
+        id: 'ins-9',
+        question: 'What type of insulation is shown?',
+        answer: 'Radiant Barrier: Aluminum foil/metalized film, shiny surface. CLASS A - Non-flammable but MELTS, doesn\'t add fuel. Reflects radiant heat only. ID: Shiny metallic in attics, often perforated, may have backing. Inspector concerns: REQUIRES air gap (ineffective if touching surfaces), dust accumulation, damaged/torn sections, stapling holes. Not a substitute for mass insulation.',
+        category: 'Insulation',
+        imageUrl: '/images/insulation/radiant-barrier.jpg'
+      },
+      {
+        id: 'ins-10',
+        question: 'What type of insulation is shown?',
+        answer: 'Vermiculite: Lightweight pebbles, silver-gold/gray-brown. FIRE-RESISTANT - Non-combustible. CRITICAL: 70-80% contains ASBESTOS from Libby, Montana mine (1919-1990). ID: Pebble-like, pours like gravel, accordion particles. Inspector concerns: ASSUME ASBESTOS - Never disturb, recommend professional testing/abatement, note in report, health hazard if airborne.',
+        category: 'Insulation',
+        imageUrl: '/images/insulation/vermiculite.jpg'
+      },
+      {
+        id: 'ins-11',
+        question: 'What type of insulation is shown?',
+        answer: 'Natural Fiber: Cotton, wool, hemp, or cork. FIRE RATINGS VARY - Treated can be Class A, untreated more flammable. Cork naturally fire-resistant. ID: Visible fiber texture (cotton=denim, wool=fuzzy, hemp=coarse, cork=granular), tan/brown/gray. Inspector concerns: Moisture absorption (mold), pest attraction, settling, fire treatment verification needed. Performance varies by material.',
+        category: 'Insulation',
+        imageUrl: '/images/insulation/natural-fiber.jpg'
+      }
+    ]
+  },
+  {
     id: 'safety-standards',
     title: 'Safety & Standards',
     description: 'Code requirements, safety hazards, and best practices',
